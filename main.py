@@ -94,20 +94,23 @@ async def startup():
     except Exception as e:
         logger.error(f"Ilk sinyal hatasi: {e}")
 
-    from config import CONFIDENCE_GATE
-    await telegram_bot.send(
-        f"*BTC Sinyal Botu v3.0 Aktif*\n"
-        f"{'=' * 28}\n"
-        f"{datetime.now().strftime('%d %b %Y - %H:%M')}\n\n"
-        f"*Ozellikler:*\n"
-        f"  20 indiktor, 5 katman\n"
-        f"  Basyargic (Judge) mekanizmasi\n"
-        f"  Guven filtresi (<%{int(CONFIDENCE_GATE*100)} susturulur)\n"
-        f"  Circuit breaker API korumasi\n"
-        f"  Sinyal basari takibi\n\n"
-        f"/yardim -- Tum komutlar\n\n"
-        f"Yatirim tavsiyesi degildir."
-    )
+from config import CONFIDENCE_GATE
+    import os
+    if not os.path.exists("db/started.flag"):
+        open("db/started.flag", "w").close()
+        await telegram_bot.send(
+            f"*BTC Sinyal Botu v3.0 Aktif*\n"
+            f"{'=' * 28}\n"
+            f"{datetime.now().strftime('%d %b %Y - %H:%M')}\n\n"
+            f"*Ozellikler:*\n"
+            f"  20 indiktor, 5 katman\n"
+            f"  Basyargic (Judge) mekanizmasi\n"
+            f"  Guven filtresi (<%{int(CONFIDENCE_GATE*100)} susturulur)\n"
+            f"  Circuit breaker API korumasi\n"
+            f"  Sinyal basari takibi\n\n"
+            f"/yardim -- Tum komutlar\n\n"
+            f"Yatirim tavsiyesi degildir."
+        )
 
 
 async def _run_4h():
