@@ -1,0 +1,17 @@
+[Unit]
+Description=BTC Sinyal Botu v3
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/btc-bot
+ExecStart=/usr/bin/python3 main.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
